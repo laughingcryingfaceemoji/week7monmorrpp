@@ -73,25 +73,26 @@
 >   - Prefills form with existing data, submits PUT to `/api/jobs/:id`, navigates back to job page after success.
 >   - Uses same form styles as AddJobPage.
 >   - Sends `Authorization` header on PUT.
-
+>
 >   - AddJobPage (Create Job)
 >   - Added full form state and POST to `/api/jobs`.
 >   - Awaits POST before navigation to ensure list refresh on Home.
 >   - Sends `Authorization` header on POST (for protected backend scenario).
-
+>
 >   - Navbar & Auth UI
 >   - Replaced `<a>` with React Router `Link` for SPA navigation.
 >   - Shows user name/email when logged in; hides `Login`/`Signup`.
 >   - Hides `Add Job` link for unauthenticated users.
 >   - Added `Logout` (clears `localStorage` and resets user state).
-
+>
 >   - App State (Auth)
 >   - `App.jsx` loads `user` from `localStorage`, passes `user` to `Navbar`/`JobPage`, and `setUser` to `Login`/`Signup`.
-
+>
 >   - Styles
 >   - Introduced generic button classes: `.btn`, `.btn-danger` (+ hover via existing rules).
 >   - Unified button appearance (font, padding, min-width) for consistent sizing.
 >   - Ensured title/link color in job cards is pink.
-
+>
 >   Notes
 >   - Token lookup uses `user.token` or `user.accessToken` from `localStorage`. Adjust if backend returns a different field name.
+>
