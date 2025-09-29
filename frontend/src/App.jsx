@@ -19,9 +19,9 @@ const App = () => {
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/jobs/:id" element={<JobPage />} />
-            <Route path="/jobs/add-job" element={<AddJobPage />} />
             <Route path="/edit-job/:id" element={<EditJobPage />} />
+            <Route path="/jobs/:id" element={<JobPage />} />
+            <Route path="/jobs/add-job" element={<AddJobPage />} /
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFoundPage />} />
