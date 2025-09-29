@@ -76,6 +76,7 @@ const JobPage = () => {
                 <p>Email: {job.company?.contactEmail}</p>
                 <p>Phone: {job.company?.contactPhone}</p>
                 <div style={{ marginTop: "1rem" }}>
+                    <Link to={`/edit-job/${job.id}`} style={{ marginRight: "0.5rem" }}>Edit Job</Link>
                     <button onClick={handleDelete}>Delete Job</button>
                 </div>
             </div>
