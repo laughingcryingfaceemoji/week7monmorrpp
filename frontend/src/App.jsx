@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // pages & components
 import Navbar from "./components/Navbar";
@@ -12,18 +12,32 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 const App = () => {
+  // track authenticated user
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("user");
+    if (stored) {
+      try {
+        setUser(JSON.parse(stored));
+      } catch (e) {
+        // ignore parse errors
+      }
+    }
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar user={user} setUser={setUser} />
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/edit-job/:id" element={<EditJobPage />} />
-            <Route path="/jobs/:id" element={<JobPage />} />
-            <Route path="/jobs/add-job" element={<AddJobPage />} /
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/jobs/:id" element={<JobPage user={user} />} />
+            <Route path="/add-job" element={<AddJobPage />} />
+            <Route path="/signup" element={<Signup setUser={setUser} />} />
+            <Route path="/login" element={<Login setUser={setUser} />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

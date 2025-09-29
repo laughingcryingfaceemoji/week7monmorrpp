@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
-const JobPage = () => {
+const JobPage = ({ user }) => {
     // fetch single job by id and allow delete
     const { id } = useParams();
     const navigate = useNavigate();
@@ -75,10 +75,12 @@ const JobPage = () => {
                 <p>Company: {job.company?.name}</p>
                 <p>Email: {job.company?.contactEmail}</p>
                 <p>Phone: {job.company?.contactPhone}</p>
-                <div style={{ marginTop: "1rem" }}>
-                    <Link to={`/edit-job/${job.id}`} className="btn" style={{ marginRight: "0.5rem" }}>Edit Job</Link>
-                    <button onClick={handleDelete} className="btn btn-danger">Delete Job</button>
-                </div>
+                {user && (
+                    <div style={{ marginTop: "1rem" }}>
+                        <Link to={`/edit-job/${job.id}`} className="btn" style={{ marginRight: "0.5rem" }}>Edit Job</Link>
+                        <button onClick={handleDelete} className="btn btn-danger">Delete Job</button>
+                    </div>
+                )}
             </div>
         </div>
     );

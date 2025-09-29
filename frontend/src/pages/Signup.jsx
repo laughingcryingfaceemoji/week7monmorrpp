@@ -2,9 +2,9 @@ import useField from "../hooks/useField";
 import useSignup from "../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Signup = ({ setUser }) => {
   const navigate = useNavigate();
-  const name = useField("text");  
+  const name = useField("text");
   const email = useField("email");
   const password = useField("password");
   const phoneNumber = useField("text");
@@ -25,8 +25,11 @@ const Signup = () => {
       date_of_birth: dateOfBirth.value,
       membership_status: membershipStatus.value,
     });
-    if (!error) {
-      console.log("success");
+    const stored = localStorage.getItem("user");
+    if (stored) {
+      try {
+        setUser(JSON.parse(stored));
+      } catch (e) { }
       navigate("/");
     }
   };
