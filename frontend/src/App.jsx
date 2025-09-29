@@ -33,11 +33,23 @@ const App = () => {
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/edit-job/:id" element={<EditJobPage />} />
             <Route path="/jobs/:id" element={<JobPage user={user} />} />
-            <Route path="/add-job" element={<AddJobPage />} />
-            <Route path="/signup" element={<Signup setUser={setUser} />} />
-            <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route
+              path="/add-job"
+              element={user ? <AddJobPage /> : <Navigate to="/login" replace />}
+            />
+            <Route
+              path="/edit-job/:id"
+              element={user ? <EditJobPage /> : <Navigate to="/login" replace />}
+            />
+            <Route
+              path="/signup"
+              element={user ? <Navigate to="/" replace /> : <Signup setUser={setUser} />}
+            />
+            <Route
+              path="/login"
+              element={user ? <Navigate to="/" replace /> : <Login setUser={setUser} />}
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

@@ -13,10 +13,13 @@ const AddJobPage = () => {
 
   const addJob = async (newJob) => {
     try {
+      const stored = localStorage.getItem("user");
+      const token = stored ? (JSON.parse(stored).token || JSON.parse(stored).accessToken) : null;
       const res = await fetch("/api/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
         body: JSON.stringify(newJob),
       });

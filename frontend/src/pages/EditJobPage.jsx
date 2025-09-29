@@ -49,9 +49,11 @@ const EditJobPage = () => {
                     contactPhone,
                 },
             };
+            const stored = localStorage.getItem("user");
+            const token = stored ? (JSON.parse(stored).token || JSON.parse(stored).accessToken) : null;
             const res = await fetch(`/api/jobs/${id}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
                 body: JSON.stringify(payload),
             });
             if (!res.ok) throw new Error("Failed to update job");

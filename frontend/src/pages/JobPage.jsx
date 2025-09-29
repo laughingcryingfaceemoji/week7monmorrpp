@@ -31,7 +31,9 @@ const JobPage = ({ user }) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this job?");
         if (!confirmDelete) return;
         try {
-            const res = await fetch(`/api/jobs/${id}`, { method: "DELETE" });
+            const stored = localStorage.getItem("user");
+            const token = stored ? (JSON.parse(stored).token || JSON.parse(stored).accessToken) : null;
+            const res = await fetch(`/api/jobs/${id}`, { method: "DELETE", headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) } });
             if (!res.ok && res.status !== 204) {
                 throw new Error("Failed to delete job");
             }
