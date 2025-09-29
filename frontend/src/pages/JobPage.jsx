@@ -67,7 +67,7 @@ const JobPage = () => {
         <div className="job-page">
             <div className="job-preview">
                 <div className="links" style={{ marginBottom: "1rem" }}>
-                    <Link to="/">Back to Jobs</Link>
+                    <Link to="/" className="btn">Back to Jobs</Link>
                 </div>
                 <h2>{job.title}</h2>
                 <p>Type: {job.type}</p>
@@ -76,8 +76,8 @@ const JobPage = () => {
                 <p>Email: {job.company?.contactEmail}</p>
                 <p>Phone: {job.company?.contactPhone}</p>
                 <div style={{ marginTop: "1rem" }}>
-                    <Link to={`/edit-job/${job.id}`} style={{ marginRight: "0.5rem" }}>Edit Job</Link>
-                    <button onClick={handleDelete}>Delete Job</button>
+                    <Link to={`/edit-job/${job.id}`} className="btn" style={{ marginRight: "0.5rem" }}>Edit Job</Link>
+                    <button onClick={handleDelete} className="btn btn-danger">Delete Job</button>
                 </div>
             </div>
         </div>

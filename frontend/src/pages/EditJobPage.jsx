@@ -64,7 +64,7 @@ const EditJobPage = () => {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div className="edit">
+        <div className="create">
             <div className="links" style={{ marginBottom: "1rem" }}>
                 <Link to={`/jobs/${id}`}>Back</Link>
             </div>
@@ -83,7 +83,7 @@ const EditJobPage = () => {
                 </select>
 
                 <label>Job Description:</label>
-                <textarea required value={description} onChange={(e) => setDescription(e.target.value)} />
+                <textarea required value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
 
                 <label>Company Name:</label>
                 <input type="text" required value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
