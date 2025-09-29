@@ -1,10 +1,14 @@
-const JobListing = () => {
+import { Link } from "react-router-dom";
+
+const JobListing = ({ job }) => {
+  // show summary and link to job page
   return (
     <div className="job-preview">
-      <h2>Job Title</h2>
-      <p>Type: some title</p>
-      <p>Description: some description</p>
-      <p>Company: company xyz</p>
+      <h2>{job.title}</h2>
+      <p>Type: {job.type}</p>
+      <p>Description: {job.description}</p>
+      <p>Company: {job.company?.name}</p>
+      <Link to={`/jobs/${job.id}`}>View Job</Link>
     </div>
   );
 };
