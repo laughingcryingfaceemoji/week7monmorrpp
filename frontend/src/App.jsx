@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // pages & components
 import Navbar from "./components/Navbar";
@@ -12,48 +12,43 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return user && user.token ? true : false;
-  });
-  
+  // track authenticated user
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("user");
+    if (stored) {
+      try {
+        setUser(JSON.parse(stored));
+      } catch (e) {
+        // ignore parse errors
+      }
+    }
+  }, []);
 
   return (
     <div className="App">
       <BrowserRouter>
-      <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+        <Navbar user={user} setUser={setUser} />
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
-
-            <Route path="/jobs/:id" element={<JobPage isAuthenticated={isAuthenticated} />} />
+            <Route path="/jobs/:id" element={<JobPage user={user} />} />
             <Route
-              path="/jobs/add-job"
-              element={isAuthenticated ? <AddJobPage /> : <Navigate to="/signup" />}
-            />           
+              path="/add-job"
+              element={user ? <AddJobPage /> : <Navigate to="/login" replace />}
+            />
             <Route
               path="/edit-job/:id"
-              element={isAuthenticated ? <EditJobPage /> : <Navigate to="/signup" />}
+              element={user ? <EditJobPage /> : <Navigate to="/login" replace />}
             />
             <Route
               path="/signup"
-              element={
-                isAuthenticated ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Signup setIsAuthenticated={setIsAuthenticated} />
-                )
-              }
+              element={user ? <Navigate to="/" replace /> : <Signup setUser={setUser} />}
             />
             <Route
               path="/login"
-              element={
-                isAuthenticated ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Login setIsAuthenticated={setIsAuthenticated} />
-                )
-              }
+              element={user ? <Navigate to="/" replace /> : <Login setUser={setUser} />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
