@@ -9,6 +9,7 @@ const JobListing = ({ job }) => {
       <p>Description: {job.description}</p>
       <p>Company: {job.company?.name}</p>
       <Link to={`/jobs/${job.id}`}>View Job</Link>
+
     </div>
   );
 };
