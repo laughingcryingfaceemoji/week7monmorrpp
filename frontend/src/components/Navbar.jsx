@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 const Navbar = ({ user, setUser }) => {
   return (
     <nav className="navbar">
-      <h1>Job Search</h1>
+      <Link to="/">
+        <h1>React Jobs</h1>
+      </Link>
       <div className="links">
         <Link to="/">Home</Link>
         {user && <Link to="/add-job">Add Job</Link>}
@@ -21,6 +23,6 @@ const Navbar = ({ user, setUser }) => {
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
