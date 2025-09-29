@@ -10,7 +10,7 @@ const AddJobPage = () => {
   const [contactPhone, setContactPhone] = useState("");
 
   const navigate = useNavigate();
- 
+
   const addJob = async (newJob) => {
     try {
       const res = await fetch("/api/jobs", {
@@ -30,7 +30,7 @@ const AddJobPage = () => {
     return true;
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
 
     const newJob = {
@@ -44,8 +44,12 @@ const AddJobPage = () => {
       },
     };
 
-    addJob(newJob);
-    return navigate("/");
+    const success = await addJob(newJob);
+    if (success) {
+      return navigate("/");
+    } else {
+      alert("Failed to add job");
+    }
   };
 
   return (
